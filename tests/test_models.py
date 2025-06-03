@@ -17,10 +17,8 @@ from inflammation.models import daily_mean, daily_max, daily_min
     )
 def test_daily_mean_integers(test, expected):
     """Test that mean function works for an array of integers."""
-    test_input = np.array(test)
-
     # Need to use Numpy testing functions to compare arrays
-    npt.assert_array_equal(daily_mean(test_input), expected)
+    npt.assert_array_equal(daily_mean(test), expected)
 
 
 @pytest.mark.parametrize(
@@ -33,11 +31,8 @@ def test_daily_mean_integers(test, expected):
     )
 def test_daily_max_integers(test, expected):
     """Test that max function works for an array of integers."""
-
-    test_input = np.array(test)
-
     # Need to use Numpy testing functions to compare arrays
-    npt.assert_array_equal(daily_max(test_input), expected)
+    npt.assert_array_equal(daily_max(test), expected)
 
 
 @pytest.mark.parametrize(
@@ -51,11 +46,8 @@ def test_daily_max_integers(test, expected):
     )
 def test_daily_min_integers(test, expected):
     """Test that min function works for an array of integers."""
-
-    test_input = np.array(test)
-
     # Need to use Numpy testing functions to compare arrays
-    npt.assert_array_equal(daily_min(test_input), expected)
+    npt.assert_array_equal(daily_min(test), expected)
 
 
 def test_daily_min_error_string():
