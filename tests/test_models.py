@@ -1,9 +1,8 @@
 """Tests for statistics functions within the Model layer."""
 
 import numpy as np
-import pytest
 import numpy.testing as npt
-
+import pytest
 from inflammation.models import daily_mean, daily_max, daily_min, patient_normalise
 
 
@@ -50,6 +49,7 @@ def test_daily_min_integers(test, expected):
 
 
 def test_daily_min_error_string():
+    """Test that min function doesn't accept strings."""
     with pytest.raises(TypeError):
         daily_min([["Hello", "There"], ["Goodbye", "Now"]])
 
@@ -57,9 +57,18 @@ def test_daily_min_error_string():
 @pytest.mark.parametrize(
     "test, expected, expect_raises",
     [
-        ([[1, 2, 3], [4, 5, 6], [7, 8, 9]], [[0.33, 0.67, 1], [0.67, 0.83, 1], [0.78, 0.89, 1]], None),
-        ([[-1, 2, 3], [4, 5, 6], [7, 8, 9]], [[0.33, 0.67, 1], [0.67, 0.83, 1], [0.78, 0.89, 1]], ValueError),
-        ([[[1, 2], [3, 4]], [[4, 5], [6, 7]]], [[[0.5, 1], [0.75, 1]], [[0.8, 1], [6/7, 1]]], ValueError),
+        ([[1, 2, 3], [4, 5, 6], [7, 8, 9]],
+         [[0.33, 0.67, 1], [0.67, 0.83, 1], [0.78, 0.89, 1]],
+         None
+         ),
+        ([[-1, 2, 3], [4, 5, 6], [7, 8, 9]],
+         [[0.33, 0.67, 1], [0.67, 0.83, 1], [0.78, 0.89, 1]],
+         ValueError
+         ),
+        ([[[1, 2], [3, 4]], [[4, 5], [6, 7]]],
+         [[[0.5, 1], [0.75, 1]], [[0.8, 1], [6/7, 1]]],
+         ValueError
+         ),
     ])
 def test_patient_normalise(test, expected, expect_raises):
     """Test normalisation works for arrays of one and positive integers.
