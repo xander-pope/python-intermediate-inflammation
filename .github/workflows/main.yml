@@ -31,4 +31,8 @@ jobs:
 
     - name: Test wit PyTest
       run: |
-        python -m pytest --cov=inflammation.models tests/test_models.py
+        python3 -m pytest --cov=inflammation.models tests/test_models.py
+
+    - name: Pylint checks
+      run: |
+        python3 -m pylint --fail-under=0 --reports=y inflammation
