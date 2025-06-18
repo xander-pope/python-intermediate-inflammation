@@ -22,3 +22,12 @@ def visualize(data_dict):
     fig.tight_layout()
 
     plt.show()
+
+
+def plot_data(std_dev):
+    """Plot standard deviation data"""
+    graph_data = {
+        'standard deviation by day': std_dev,
+    }
+
+    visualize(graph_data)
