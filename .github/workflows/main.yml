@@ -1,0 +1,38 @@
+name: Inflammation CI
+
+# Specify which Github action will trigger this CI build
+on: push
+
+jobs:
+
+  build:
+
+    strategy:
+      matrix:
+        os: ["ubuntu-latest", "windows-latest"]
+        python-version: ["3.11", "3.12"]
+
+    runs-on: ${{matrix.os}}
+
+    steps:
+
+    - name: Checkout repository
+      uses: actions/checkout@v4
+
+    - name: Set up Python
+      uses: actions/setup-python@v5
+      with:
+        python-version: "${{matrix.python-version}}"
+
+    - name: Install Python dependencies
+      run: |
+        python3 -m pip install --upgrade pip
+        python3 -m pip install -r requirements.txt
+
+    - name: Test wit PyTest
+      run: |
+        python3 -m pytest --cov=inflammation.models tests/test_models.py
+
+    - name: Pylint checks
+      run: |
+        python3 -m pylint --fail-under=0 --reports=y inflammation
