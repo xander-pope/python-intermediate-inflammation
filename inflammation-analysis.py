@@ -18,15 +18,16 @@ def main(args):
     if not isinstance(infiles, list):
         infiles = [args.infiles]
 
-
     if args.full_data_analysis:
         files = [f for f in os.listdir(infiles[0]) if os.path.isfile(os.path.join(infiles[0], f))]
         extensions = []
+        # Storing the file extensions of the files in specified directory
         for f in files:
             ext = os.path.splitext(f)[1]
             if ext and ext[1:] not in extensions:
                 extensions.append(ext[1:])
         
+        # Combining the datasets of varying data types into one array
         dataset = []
         for ext in extensions:
             if ext == 'json':
@@ -76,4 +77,4 @@ if __name__ == "__main__":
 
     args = parser.parse_args()
 
-    main(arguments)
+    main(args)
